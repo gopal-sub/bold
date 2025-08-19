@@ -1,0 +1,7 @@
+=> expose 2 end points /getmachine /removemachine{authenticated}
+
+=> free machine pool = 25% more taken resources
+
+=> 1 array => machine_pool
+
+=> 
