@@ -4,4 +4,23 @@
 
 => 1 array => machine_pool
 
-=> 
+machine_pool = 
+{
+    machine_ip: "",
+    project_id: "",
+    is_used: boolean,
+}
+
+=> get current min and max machine and desired number
+=> user hit /getmachine
+=> machine hit //removemachine
+
+
+//get access to aws account
+//make changes to the desired capicity to machine
+
+
+
+//
+//2 point 
+//
