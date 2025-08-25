@@ -5,7 +5,7 @@
   "scripts": {
     "orch": "echo orch",
     "dev": "npx tsc -b && node ./dist/index.js",
-    "dev_orch": "npx tsc -b && node ./dist/aws-infra-scaling.js"
+    "orc": "npx tsc -b && node ./dist/worker-orchestrator/aws-infra-scaling.js"
   },
   "keywords": [],
   "author": "",
