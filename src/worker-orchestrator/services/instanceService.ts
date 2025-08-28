@@ -11,8 +11,21 @@ export async function get_instance_ip(instance_ids: string[], client: EC2Client)
     try{
         const command = new DescribeInstancesCommand(input);
         const response = await client.send(command);
+        // response.Reservations?.forEach(x => console.log(x.Instances));
         //@ts-ignore
-        const instance_ips = response.Reservations[0]?.Instances?.map(obj => obj.PublicIpAddress);
+        const instance_ips = []
+        //@ts-ignore
+        for(let x of response.Reservations){
+            const instances = x.Instances;
+            //@ts-ignore
+            for(let y of instances){
+                const ip = y.PublicIpAddress;
+                instance_ips.push(ip)
+            }
+
+        };
+        
+        // const instance_ips = response.Reservations?.Instances?.map(obj => obj.PublicIpAddress);
         return instance_ips
     }catch(e){
         return null;
@@ -42,3 +55,4 @@ export async function get_instance_id(autoscaling_grp: string, client: AutoScali
 
     
 }
+

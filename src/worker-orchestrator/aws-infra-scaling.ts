@@ -3,6 +3,7 @@ import { error } from 'console';
 import dotenv from 'dotenv';
 import { EC2Client } from "@aws-sdk/client-ec2";
 import {get_instance_ip, get_instance_id} from './services/instanceService'
+import {autoscaling_grp_details, update_asg_desiredInstances} from './services/autoscaling_groupServices'
 
 
 dotenv.config()
@@ -30,15 +31,20 @@ async function get_instance_record(){
     // const input = { // DescribeLoadBalancersRequest
     //     AutoScalingGroupName: [],
     // };
+    // const asg_details = await autoscaling_grp_details("vs_code_asg", clientAS);
+    // console.log(asg_details);
+    // await update_asg_desiredInstances("vs_code_asg", 5, clientAS);
+    // const asg_details2 = await autoscaling_grp_details("vs_code_asg", clientAS);
+    // console.log(asg_details2);
 
 
 
-    // const response  = await get_instance_ip(["i-0cf9bff47c688b84f"], client);
-    // console.log(response);
 
-    const instance_ids = await get_instance_id("vs_code_asg", clientAS) || [];
+
+    const instance_ids = await get_instance_id("vs_code_asg", clientAS);
     if(instance_ids){
         const valid_ids = instance_ids.filter((id): id is string => id !== undefined);
+        console.log(valid_ids);
         const instance_ips = await get_instance_ip(valid_ids, client);
         console.log(instance_ips);
 
@@ -48,6 +54,8 @@ async function get_instance_record(){
 
 
 }
+
+
 
 
 

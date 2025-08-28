@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/worker-orchestrator/aws-infra-scaling.ts","./src/worker-orchestrator/services/instanceService.ts"],"version":"5.9.2"}
+{"root":["./src/index.ts","./src/worker-orchestrator/aws-infra-scaling.ts","./src/worker-orchestrator/services/autoscaling_groupServices.ts","./src/worker-orchestrator/services/instanceService.ts"],"version":"5.9.2"}
