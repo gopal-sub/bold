@@ -13,7 +13,7 @@ export async function get_instance_ip(instance_ids: string[], client: EC2Client)
         const response = await client.send(command);
         // response.Reservations?.forEach(x => console.log(x.Instances));
         //@ts-ignore
-        const instance_ips = []
+        const instance_ips = [];
         //@ts-ignore
         for(let x of response.Reservations){
             const instances = x.Instances;
@@ -56,3 +56,6 @@ export async function get_instance_id(autoscaling_grp: string, client: AutoScali
     
 }
 
+export async function getInstancesIP() {
+    
+}

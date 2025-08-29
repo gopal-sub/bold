@@ -1,6 +1,6 @@
-
 import { AutoScalingClient, SetDesiredCapacityCommand, DescribeAutoScalingGroupsCommand} from '@aws-sdk/client-auto-scaling';
-
+import {asg_details} from '../types/instancePoolType'
+import { error } from 'console';
 
 
 
@@ -15,11 +15,16 @@ export async function autoscaling_grp_details(asg_name: string, client: AutoScal
         const command = new DescribeAutoScalingGroupsCommand(input);
         const response = await client.send(command);
         const asg = response.AutoScalingGroups?.[0];
+        
         if (!asg) {
             throw new Error("No Auto Scaling Groups found in response");
         }
+        if(!(asg.MinSize && asg.MaxSize && asg.DesiredCapacity)){
+            throw new Error("aws response failed")
+        }
+
         
-        const asg_details = {
+        const asg_details: asg_details= {
             MinSize: asg.MinSize,
             MaxSize: asg.MaxSize,
             DesiredCapacity: asg.DesiredCapacity

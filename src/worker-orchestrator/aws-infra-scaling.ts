@@ -23,6 +23,8 @@ const config = {
 const clientAS = new AutoScalingClient(config);
 const client = new EC2Client(config);
 
+
+
 async function get_instance_record(){
     // const input_param = {};
     // const command = new DescribeAccountLimitsCommand(input_param) ;
@@ -31,29 +33,26 @@ async function get_instance_record(){
     // const input = { // DescribeLoadBalancersRequest
     //     AutoScalingGroupName: [],
     // };
-    // const asg_details = await autoscaling_grp_details("vs_code_asg", clientAS);
-    // console.log(asg_details);
+
+    const asg_details = await autoscaling_grp_details("vs_code_asg", clientAS);
     // await update_asg_desiredInstances("vs_code_asg", 5, clientAS);
-    // const asg_details2 = await autoscaling_grp_details("vs_code_asg", clientAS);
-    // console.log(asg_details2);
+
+    return asg_details;
+}
 
 
 
 
+async function getIP_Instances() {
 
     const instance_ids = await get_instance_id("vs_code_asg", clientAS);
     if(instance_ids){
         const valid_ids = instance_ids.filter((id): id is string => id !== undefined);
-        console.log(valid_ids);
         const instance_ips = await get_instance_ip(valid_ids, client);
-        console.log(instance_ips);
-
     }
-
-
-
-
+    
 }
+
 
 
 
