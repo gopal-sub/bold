@@ -2,7 +2,7 @@ import { AutoScalingClient, DescribeAccountLimitsCommand, DescribeAutoScalingIns
 import { error } from 'console';
 import dotenv from 'dotenv';
 import { EC2Client } from "@aws-sdk/client-ec2";
-import {get_instance_ip, get_instance_id} from './services/instanceService'
+import {get_instance_ip, get_instance_id, create_new_instance} from './services/instanceService'
 import {autoscaling_grp_details, update_asg_desiredInstances} from './services/autoscaling_groupServices'
 
 
@@ -34,10 +34,12 @@ async function get_instance_record(){
     //     AutoScalingGroupName: [],
     // };
 
-    const asg_details = await autoscaling_grp_details("vs_code_asg", clientAS);
-    // await update_asg_desiredInstances("vs_code_asg", 5, clientAS);
+    // const asg_details = await autoscaling_grp_details("vs_code_asg", clientAS);
+    // // await update_asg_desiredInstances("vs_code_asg", 5, clientAS);
 
-    return asg_details;
+    // return asg_details;
+
+    await create_new_instance(client)
 }
 
 

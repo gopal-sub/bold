@@ -1,5 +1,5 @@
 import { AutoScalingClient, SetDesiredCapacityCommand, DescribeAutoScalingGroupsCommand} from '@aws-sdk/client-auto-scaling';
-import {asg_details} from '../types/instancePoolType'
+import {ASG_DETAILS} from '../types/instancePoolType'
 import { error } from 'console';
 
 
@@ -24,12 +24,12 @@ export async function autoscaling_grp_details(asg_name: string, client: AutoScal
         }
 
         
-        const asg_details: asg_details= {
+        const ASG_DETAILS: ASG_DETAILS= {
             MinSize: asg.MinSize,
             MaxSize: asg.MaxSize,
             DesiredCapacity: asg.DesiredCapacity
         }
-        return asg_details;
+        return ASG_DETAILS;
         
     } catch (error) {
         return null

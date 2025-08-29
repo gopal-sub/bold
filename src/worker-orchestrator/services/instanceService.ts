@@ -1,4 +1,4 @@
-import { EC2Client, DescribeInstancesCommand } from "@aws-sdk/client-ec2";
+import { EC2Client, DescribeInstancesCommand, RunInstancesCommand } from "@aws-sdk/client-ec2";
 import { AutoScalingClient, DescribeAutoScalingGroupsCommand } from '@aws-sdk/client-auto-scaling';
 
 
@@ -56,6 +56,23 @@ export async function get_instance_id(autoscaling_grp: string, client: AutoScali
     
 }
 
-export async function getInstancesIP() {
+
+export async function create_new_instance(client: EC2Client) {
+    const params = {
+      ImageId: "ami-0360c520857e3138f", // Replace with your desired AMI ID
+      InstanceType: "t2.micro",
+      MinCount: 1,
+      MaxCount: 1,
+      KeyName: "acer_ubuntu_test",
+    };
+    try {
+        //@ts-ignore
+        const command = new RunInstancesCommand(params);
+        const data = await client.send(command);
+        //@ts-ignore
+        console.log("Instance created successfully:", data.Instances);
+    } catch (error) {
+        console.error("Error creating instance:", error);
+    }
     
 }
