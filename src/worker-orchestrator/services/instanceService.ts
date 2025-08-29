@@ -1,5 +1,5 @@
 import { EC2Client, DescribeInstancesCommand, RunInstancesCommand } from "@aws-sdk/client-ec2";
-import { AutoScalingClient, DescribeAutoScalingGroupsCommand } from '@aws-sdk/client-auto-scaling';
+import { AutoScalingClient, DescribeAutoScalingGroupsCommand, AttachInstancesCommand } from '@aws-sdk/client-auto-scaling';
 
 
 
@@ -64,15 +64,33 @@ export async function create_new_instance(client: EC2Client) {
       MinCount: 1,
       MaxCount: 1,
       KeyName: "acer_ubuntu_test",
+      Placement: { // Placement
+            AvailabilityZone: "us-east-1a",
+        },
     };
     try {
         //@ts-ignore
         const command = new RunInstancesCommand(params);
         const data = await client.send(command);
         //@ts-ignore
-        console.log("Instance created successfully:", data.Instances);
+        return data;
     } catch (error) {
         console.error("Error creating instance:", error);
     }
+    
+}
+
+export async function attachInstance_to_asg(client: AutoScalingClient, instanceID: string, asgName: string) {
+
+    const input = { // AttachInstancesQuery
+        InstanceIds: [ // InstanceIds
+            instanceID,
+        ],
+        AutoScalingGroupName: asgName, // required
+    };
+
+    const command = new AttachInstancesCommand(input);
+    const response = await client.send(command);
+    console.log(response);
     
 }
